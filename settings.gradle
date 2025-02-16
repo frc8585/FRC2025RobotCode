@@ -3,7 +3,10 @@ import org.gradle.internal.os.OperatingSystem
 pluginManagement {
     repositories {
         mavenLocal()
+        mavenCentral()
+        maven { url = 'https://maven.revrobotics.com/' }
         gradlePluginPortal()
+        maven { url = 'https://frcmaven.wpi.edu/artifactory/release' }
         String frcYear = '2025'
         File frcHome
         if (OperatingSystem.current().isWindows()) {
