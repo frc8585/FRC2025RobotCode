@@ -113,12 +113,12 @@ public class SwerveModule {
      */
     public void setState(SwerveModuleState state) {
         // 優化狀態，使轉向馬達不必旋轉超過 90 度來獲得目標的角度
-        SwerveModuleState optimizedState = SwerveModuleState.optimize(state, getState().angle);
+        state.optimize(state.angle);;
         
         // 通過比較目前角度與目標角度來用 PID 控制器計算轉向馬達所需的輸出
-        double rotorOutput = mRotorPID.calculate(getState().angle.getDegrees(), optimizedState.angle.getDegrees());
+        double rotorOutput = mRotorPID.calculate(getState().angle.getDegrees(), state.angle.getDegrees());
 
         mRotor.set(rotorOutput);
-        mThrottle.set(optimizedState.speedMetersPerSecond);
+        mThrottle.set(state.speedMetersPerSecond);
     }
 }
