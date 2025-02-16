@@ -1,7 +1,10 @@
 package frc.robot;
 
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 
 import edu.wpi.first.units.measure.Velocity;
 
@@ -32,13 +35,19 @@ public class Swerve {
 
     public static final double kThrottleGearRatio = 6.0;
 
+
+    /*
+        1/2048 is used to convert from Falcon encoder ticks to rotations
+        * 10 is used to convert from rotations per 100ms to rotations per second
+    */ 
     // Position Constant
     public static final double kThrottlePositionConversionFactor =
-        1 / kThrottleGearRatio * kWheelDiameterMeters * Math.PI;
+        1 / kThrottleGearRatio / 2048 * kWheelDiameterMeters * Math.PI;
     // Velocity Constant
     public static final double kThrottleVelocityConversionFactor =
-        1 / kThrottleGearRatio / 60 * kWheelDiameterMeters * Math.PI;
+        1 / kThrottleGearRatio /2048 * kWheelDiameterMeters * Math.PI * 10;
 
+    
     // Rotor FX
     private static final TalonFX m_leftFrontRotor = new TalonFX(kLeftFrontRotorID);
     private static final TalonFX m_rightFrontRotor = new TalonFX(kRightFrontRotorID);
@@ -56,4 +65,6 @@ public class Swerve {
     private static final CANcoder m_rightFrontRotorEncoder = new CANcoder(kRightFrontRotorEncoderID);
     private static final CANcoder m_leftRearRotorEncoder = new CANcoder(kLeftRearRotorEncoderID);
     private static final CANcoder m_rightRearRotorEncoder = new CANcoder(kRightRearRotorEncoderID);
+
+
 }
