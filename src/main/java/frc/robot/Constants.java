@@ -69,13 +69,13 @@ public final class Constants {
 
         // Wheel diameter
         // 輪徑
-        public static final double kWheelDiameterMeters = 0.0985 ; // wheel diameter
+        public static final double kWheelDiameterMeters = 0.0; // wheel diameter
         
         // Throttle gear ratio
         // (number of turns it takes the motor to rotate the rotor one revolution)
         // Throttle 齒輪比率
         // （馬達轉動輪子一圈所需的圈數）
-        public static final double kThrottleGearRatio = 6; 
+        public static final double kThrottleGearRatio = 0.0; 
 
         // Throttle velocity conversion constant
         // Throttle 速度轉換 Constant
