@@ -25,9 +25,14 @@ public class RobotContainer {
 
     // Extract trajectory from PathPlanner
     // 從 PathPlanner 獲取 trajectory
-    private PathPlannerPath mTrajectory = PathPlannerPath.fromPathFile("New Path");
+    private PathPlannerPath mTrajectory;
 
     public RobotContainer() {
+        try {
+            mTrajectory = PathPlannerPath.fromPathFile("New Path");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // Configure the button bindings
         configureButtonBindings();
 
