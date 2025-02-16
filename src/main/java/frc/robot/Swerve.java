@@ -19,4 +19,11 @@ public class Swerve {
     public static final int kLeftRearRotorEncoderID = 21;
     public static final int kRightRearRotorEncoderID = 20;
     
+    // other constants
+    public static final double kMaxVelocityMetersPerSecond = 0.0; // 最大速度（米）
+    public static final double kMaxAccelerationMetersPerSecond = 0.0; //最大加速度（米/s）
+    
+    public static final double kWheelDiameterMeters = 0.0; //輪徑(m)
+
+    public static final double kThrottleGearRatio = 6.0;
 }
