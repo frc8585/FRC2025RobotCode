@@ -1,10 +1,10 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.config.PIDConstants;
+import com.studica.frc.AHRS;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -20,7 +20,7 @@ import frc.robot.Constants.SwerveConstants;
 public class Swerve extends SubsystemBase {
     // Initialize IMU
     // 初始化 IMU
-    private final Pigeon2 mImu = new Pigeon2(SwerveConstants.kImuID);
+    private final AHRS mImu = new AHRS(AHRS.NavXComType.kMXP_SPI);
 
     private final SwerveModule mLeftFrontModule, mRightFrontModule, mLeftRearModule, mRightRearModule;
     private SwerveDriveOdometry mOdometry;
