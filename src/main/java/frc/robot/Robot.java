@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
+import com.ctre.phoenix6.hardware.CANcoder;
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -18,6 +20,11 @@ public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
 
     private RobotContainer m_robotContainer;
+    
+    private CANcoder m_leftFrontCANCoder = new CANcoder(Constants.SwerveConstants.kLeftFrontCANCoderID);
+    private CANcoder m_rightFrontCANCoder = new CANcoder(Constants.SwerveConstants.kRightFrontCANCoderID);
+    private CANcoder m_leftRearCANCoder = new CANcoder(Constants.SwerveConstants.kLeftRearCANCoderID);
+    private CANcoder m_rightRearCANCoder = new CANcoder(Constants.SwerveConstants.kRightRearCANCoderID);
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -87,11 +94,18 @@ public class Robot extends TimedRobot {
     public void testInit() {
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
+
+        System.out.println("Left Front: " + m_leftFrontCANCoder.getAbsolutePosition().getValueAsDouble());
+        System.out.println("Right Front: " + m_rightFrontCANCoder.getAbsolutePosition().getValueAsDouble());
+        System.out.println("Left Rear: " + m_leftRearCANCoder.getAbsolutePosition().getValueAsDouble());
+        System.out.println("Right Rear: " + m_rightRearCANCoder.getAbsolutePosition().getValueAsDouble());
     }
 
     /** This function is called periodically during test mode. */
     @Override
-    public void testPeriodic() {}
+    public void testPeriodic() {
+
+    }
 
     /** This function is called once when the robot is first started up. */
     @Override

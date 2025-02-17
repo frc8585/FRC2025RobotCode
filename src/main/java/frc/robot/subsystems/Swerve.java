@@ -117,6 +117,7 @@ public class Swerve extends SubsystemBase {
      */
     public void drive(double xSpeed, double ySpeed, double zSpeed, boolean fieldOriented) {
         SwerveModuleState[] states = null;
+
         if(fieldOriented) {
             states = SwerveConstants.kSwerveKinematics.toSwerveModuleStates(
                 // IMU used for field oriented control

@@ -12,7 +12,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-
+import edu.wpi.first.units.measure.Time;
 import frc.robot.Constants;
 import frc.robot.Constants.SwerveConstants;
 
@@ -113,7 +113,7 @@ public class SwerveModule {
      */
     public void setState(SwerveModuleState state) {
         // 優化狀態，使轉向馬達不必旋轉超過 90 度來獲得目標的角度
-        state.optimize(state.angle);;
+        state.optimize(getState().angle);;
         
         // 通過比較目前角度與目標角度來用 PID 控制器計算轉向馬達所需的輸出
         double rotorOutput = mRotorPID.calculate(getState().angle.getDegrees(), state.angle.getDegrees());

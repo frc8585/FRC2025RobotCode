@@ -17,29 +17,26 @@ public final class Constants {
     public static final class SwerveConstants {
 
         // Rotor IDs
-        public static final int kLeftFrontRotorID = 1;
-        public static final int kRightFrontRotorID = 2;
-        public static final int kLeftRearRotorID = 3;
-        public static final int kRightRearRotorID = 4;
+        public static final int kLeftFrontRotorID = 10;
+        public static final int kRightFrontRotorID = 12;
+        public static final int kLeftRearRotorID = 16;
+        public static final int kRightRearRotorID = 14;
 
         // Throttle IDs
-        public static final int kLeftFrontThrottleID = 5;
-        public static final int kRightFrontThrottleID = 6;
-        public static final int kLeftRearThrottleID = 7;
-        public static final int kRightRearThrottleID = 8;
+        public static final int kLeftFrontThrottleID = 11;
+        public static final int kRightFrontThrottleID = 13;
+        public static final int kLeftRearThrottleID = 17;
+        public static final int kRightRearThrottleID = 15;
 
         // Rotor encoder IDs
-        public static final int kLeftFrontCANCoderID = 9;
-        public static final int kRightFrontCANCoderID = 10;
-        public static final int kLeftRearCANCoderID = 11;
-        public static final int kRightRearCANCoderID = 12;
+        public static final int kLeftFrontCANCoderID = 18;
+        public static final int kRightFrontCANCoderID = 19;
+        public static final int kLeftRearCANCoderID = 21;
+        public static final int kRightRearCANCoderID = 20;
 
         // Rotor encoder & motor inversion
         public static final SensorDirectionValue kRotorEncoderDirection = SensorDirectionValue.CounterClockwise_Positive;
         public static final InvertedValue kRotorMotorInversion = InvertedValue.CounterClockwise_Positive;
-
-        // IMU ID
-        public static final int kImuID = 0;
 
         // Rotor encoder offsets
         // Rotor encoder 偏移量
@@ -69,13 +66,13 @@ public final class Constants {
 
         // Wheel diameter
         // 輪徑
-        public static final double kWheelDiameterMeters = 0.0; // wheel diameter
+        public static final double kWheelDiameterMeters = 99.5; // wheel diameter
         
         // Throttle gear ratio
         // (number of turns it takes the motor to rotate the rotor one revolution)
         // Throttle 齒輪比率
         // （馬達轉動輪子一圈所需的圈數）
-        public static final double kThrottleGearRatio = 0.0; 
+        public static final double kThrottleGearRatio = 6.0; 
 
         // Throttle velocity conversion constant
         // Throttle 速度轉換 Constant
@@ -84,10 +81,10 @@ public final class Constants {
         // This is the general formula: 
         //     (1.0 / GEAR RATIO) * WHEEL DIAMETER * Math.PI;
         public static final double kThrottleVelocityConversionFactor = 
-            (1/kThrottleGearRatio)*kWheelDiameterMeters*Math.PI;
+            (1/kThrottleGearRatio)/2048*kWheelDiameterMeters*Math.PI;
 
         public static final double kThrottlePositionConversionFactor = 
-            (1/kThrottleGearRatio)*kWheelDiameterMeters*Math.PI;
+            (1/kThrottleGearRatio)/2048*kWheelDiameterMeters*Math.PI;
         
         // Pathing PID constants 
         public static final double kPathingX_kP = 0.1;
