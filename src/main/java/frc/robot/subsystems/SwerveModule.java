@@ -12,7 +12,6 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.units.measure.Time;
 import frc.robot.Constants;
 import frc.robot.Constants.SwerveConstants;
 
@@ -62,6 +61,8 @@ public class SwerveModule {
         magnetSensorConfigs.MagnetOffset = rotorOffsetAngleDeg;
         mRotorEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magnetSensorConfigs), Constants.kLongTimeoutMs);
 
+        System.out.println(rotorEncoderID+": "+mRotorEncoder.getAbsolutePosition().getValueAsDouble());
+
         // 根據之前的常數配置 rotor 馬達的PID控制器
         mRotorPID = new PIDController(
             SwerveConstants.kRotor_kP,
@@ -70,7 +71,7 @@ public class SwerveModule {
         );
 
         // ContinuousInput 認為 min 和 max 是同一點並且自動計算到設定點的最短路線
-        mRotorPID.enableContinuousInput(-180, 180);
+        mRotorPID.enableContinuousInput(-0.5, 0.5);
 
         // 根據之前的常數配置 throttle 馬達
         MotorOutputConfigs throttleMotorOutputConfigs = new MotorOutputConfigs();
@@ -115,9 +116,7 @@ public class SwerveModule {
         // 優化狀態，使轉向馬達不必旋轉超過 90 度來獲得目標的角度
         state.optimize(getState().angle);;
         
-        // 通過比較目前角度與目標角度來用 PID 控制器計算轉向馬達所需的輸出
-        double rotorOutput = mRotorPID.calculate(getState().angle.getDegrees(), state.angle.getDegrees());
-
+        double rotorOutput = -mRotorPID.calculate(getState().angle.getDegrees()/360, state.angle.getDegrees()/360);
         mRotor.set(rotorOutput);
         mThrottle.set(state.speedMetersPerSecond);
     }
