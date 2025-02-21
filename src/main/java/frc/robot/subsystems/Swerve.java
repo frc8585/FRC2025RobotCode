@@ -115,20 +115,13 @@ public class Swerve extends SubsystemBase {
      * @param zSpeed percent power for rotation (旋轉的功率百分比)
      * @param fieldOriented configure robot movement style (設置機器運動方式) (field or robot oriented)
      */
-    public void drive(double xSpeed, double ySpeed, double zSpeed, boolean fieldOriented) {
-        SwerveModuleState[] states = null;
+    public void drive(double xSpeed, double ySpeed, double zSpeed, boolean FieldOriented) {
+        ChassisSpeeds speeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zSpeed, mImu.getRotation2d());
+        SwerveModuleState[] states = SwerveConstants.kSwerveKinematics.toSwerveModuleStates(speeds);
 
-        if(fieldOriented) {
-            states = SwerveConstants.kSwerveKinematics.toSwerveModuleStates(
                 // IMU used for field oriented control
                 // IMU 用於 Field Oriented Control
-                ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zSpeed, mImu.getRotation2d())
-            );
-        } else {
-            states = SwerveConstants.kSwerveKinematics.toSwerveModuleStates(
-                new ChassisSpeeds(xSpeed, ySpeed, zSpeed)
-            );
-        }
+                
         setModuleStates(states);
     }
 

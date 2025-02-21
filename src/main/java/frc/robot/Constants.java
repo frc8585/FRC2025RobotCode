@@ -49,21 +49,21 @@ public final class Constants {
         // Swerve kinematics (order: left front, right front, left rear, right rear)
         // Swerve kinematics（順序：左前，右前，左後，右後）
         public static final SwerveDriveKinematics kSwerveKinematics = new SwerveDriveKinematics(
-            new Translation2d(0.0, 0.0), 
-            new Translation2d(0.0, 0.0), 
-            new Translation2d(0.0, 0.0),
-            new Translation2d(0.0, 0.0)
+            new Translation2d(0.34605, 0.2762), 
+            new Translation2d(0.34605, -0.2762), 
+            new Translation2d(-0.34605, 0.2762),
+            new Translation2d(-0.34605, -0.2762)
         );
 
         // Rotor PID constants
-        public static final double kRotor_kP = 3.0;
-        public static final double kRotor_kI = 4.0;
-        public static final double kRotor_kD = 0.17;
+        public static final double kRotor_kP = 5.0;
+        public static final double kRotor_kI = 3.0;
+        public static final double kRotor_kD = 0.13;
 
         // Velocity & acceleration of swerve
         // Swerve 最大速度 / 加速度
-        public static final double kMaxVelocityMetersPerSecond = 3.0;
-        public static final double kMaxAccelerationMetersPerSecond = 3.0;
+        public static final double kMaxVelocityMetersPerSecond = 1;
+        public static final double kMaxAccelerationMetersPerSecond = 1;
 
         // Wheel diameter
         // 輪徑
@@ -106,5 +106,5 @@ public final class Constants {
     // Controller port
     public static final int kControllerPort = 0;
 
-    public static final double kLongTimeoutMs = 100.;
+    public static final double kLongTimeoutMs = 100.0;
 }

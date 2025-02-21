@@ -114,7 +114,7 @@ public class SwerveModule {
      */
     public void setState(SwerveModuleState state) {
         // 優化狀態，使轉向馬達不必旋轉超過 90 度來獲得目標的角度
-        state.optimize(getState().angle);;
+        state.optimize(getState().angle);
         
         double rotorOutput = -mRotorPID.calculate(getState().angle.getDegrees()/360, state.angle.getDegrees()/360);
         mRotor.set(rotorOutput);
