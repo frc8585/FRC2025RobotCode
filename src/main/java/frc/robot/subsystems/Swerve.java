@@ -81,8 +81,8 @@ public class Swerve extends SubsystemBase {
             this::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
             this::driveRobotRelative, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
             new PPHolonomicDriveController( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-                new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
-                new PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
+                new PIDConstants(5.0, 3.0, 0.13), // Translation PID constants
+                new PIDConstants(5.0, 3.0, 0.13) // Rotation PID constants
             ),
             config,
             () -> {
@@ -115,7 +115,9 @@ public class Swerve extends SubsystemBase {
      * @param zSpeed percent power for rotation (旋轉的功率百分比)
      * @param fieldOriented configure robot movement style (設置機器運動方式) (field or robot oriented)
      */
-    public void drive(double xSpeed, double ySpeed, double zSpeed, boolean FieldOriented) {
+    public void drive(double xSpeed, double ySpeed, double zSpeed, boolean fieldOriented) {
+        System.out.println("xSpeed:"+xSpeed);
+        
         ChassisSpeeds speeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zSpeed, mImu.getRotation2d());
         SwerveModuleState[] states = SwerveConstants.kSwerveKinematics.toSwerveModuleStates(speeds);
 

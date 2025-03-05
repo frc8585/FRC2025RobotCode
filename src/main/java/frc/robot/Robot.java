@@ -4,9 +4,16 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.Swerve;
+
+import com.revrobotics.spark.SparkMax;
+import com.studica.frc.AHRS;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -15,9 +22,20 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
+    private final AHRS mImu = new AHRS(AHRS.NavXComType.kMXP_SPI);
     private Command m_autonomousCommand;
+    private final Swerve aSwerve = new Swerve();
+    public double fieldOffset = 0.0;
+    public SparkMax intakeMotorLeft;
+    public SparkMax intakeMotorRight;
+    public SparkMax updown;
 
-    private RobotContainer m_robotContainer;
+    public SparkMax climber;
+
+    public boolean RF;
+
+    public Joystick joystickE = new Joystick(0);
+    public Joystick joystick = new Joystick(1);
     /**
      * This function is run when the robot is first started up and should be used for any
      * initialization code.
@@ -26,7 +44,13 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
-        m_robotContainer = new RobotContainer();
+        intakeMotorLeft = new SparkMax(51, MotorType.kBrushless);
+        intakeMotorRight = new SparkMax(52, MotorType.kBrushless);
+        updown = new SparkMax(50, MotorType.kBrushless);
+
+        RF = false;
+
+        climber = new SparkMax(30, MotorType.kBrushless);
     }
 
     /**
@@ -55,17 +79,23 @@ public class Robot extends TimedRobot {
     /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
     @Override
     public void autonomousInit() {
-        m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+        
+        // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-        // schedule the autonomous command (example)
-        if (m_autonomousCommand != null) {
-            m_autonomousCommand.schedule();
-        }
+        // // schedule the autonomous command (example)
+        //  if (m_autonomousCommand != null) {
+        //      m_autonomousCommand.schedule();
+        // }
     }
 
     /** This function is called periodically during autonomous. */
     @Override
-    public void autonomousPeriodic() {}
+    public void autonomousPeriodic() {
+        System.out.println(Timer.getMatchTime());
+        if (Timer.getMatchTime() >= 10){
+            aSwerve.drive(0.6, 0, 0, RF);
+        }
+    }
 
     @Override
     public void teleopInit() {
@@ -80,7 +110,49 @@ public class Robot extends TimedRobot {
 
     /** This function is called periodically during operator control. */
     @Override
-    public void teleopPeriodic() {}
+    public void teleopPeriodic() {
+        aSwerve.drive(-joystickE.getRawAxis(1)*0.5, -joystickE.getRawAxis(0)*0.5, -joystickE.getRawAxis(4)*0.8, RF);
+
+        if (joystick.getRawButtonPressed(6)) {
+            fieldOffset = mImu.getYaw();
+            System.out.println("Field orientation reset. New offset: " + fieldOffset);
+        }
+
+        if (joystick.getRawButton(1)) { // 按鈕 1 吸入
+            intakeMotorLeft.set(1);
+            intakeMotorRight.set(-1);
+            
+        } else if (joystick.getRawButton(2)) { // 按鈕 2 吐出
+            intakeMotorLeft.set(-1);
+            intakeMotorRight.set(1);
+            
+        } else { // 停止馬達
+            intakeMotorLeft.set(0);
+            intakeMotorRight.set(0);
+            
+        }
+
+        if (joystick.getRawButton(3)) { // 按鈕 1 吸入
+            climber.set(1);
+            climber.set(-1);
+            
+        } else if (joystick.getRawButton(4)) { // 按鈕 2 吐出
+            climber.set(-1);
+            climber.set(1);
+            
+        } else { // 停止馬達
+            climber.set(0);
+            climber.set(0);
+            
+        }
+
+        if (joystick.getRawButton(5)) {
+            updown.set(joystick.getRawAxis(1)*0.3);
+        }else{
+            updown.stopMotor();
+        }
+        System.out.println(joystick.getRawAxis(2));
+    }
 
 
     @Override

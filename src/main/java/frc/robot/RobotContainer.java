@@ -7,6 +7,7 @@ package frc.robot;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.path.PathPlannerPath;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -18,6 +19,7 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final XboxController mController = new XboxController(Constants.kControllerPort);
     private final Swerve mSwerve = new Swerve();
+    private Joystick joystick = new Joystick(0);
 
     // Create new instance of ManualDrive, passing Swerve and Controller as parameters
     // 創造一個新的 ManualDrive instance, 給他 Swerve 跟 Controller 當 parameters
@@ -29,7 +31,7 @@ public class RobotContainer {
 
     public RobotContainer() {
         try {
-            mTrajectory = PathPlannerPath.fromPathFile("New Path");
+            mTrajectory =   PathPlannerPath.fromPathFile("");
         } catch (Exception e) {
             e.printStackTrace();
         }
