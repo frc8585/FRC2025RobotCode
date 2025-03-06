@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.SwerveConstants;
 import frc.robot.subsystems.Swerve;
 
 import com.revrobotics.spark.SparkMax;
@@ -48,7 +49,7 @@ public class Robot extends TimedRobot {
         intakeMotorRight = new SparkMax(52, MotorType.kBrushless);
         updown = new SparkMax(50, MotorType.kBrushless);
 
-        RF = false;
+        RF = true;
 
         climber = new SparkMax(30, MotorType.kBrushless);
     }
@@ -79,7 +80,7 @@ public class Robot extends TimedRobot {
     /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
     @Override
     public void autonomousInit() {
-        
+        aSwerve.zeroYaw();
         // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
         // // schedule the autonomous command (example)
@@ -111,7 +112,23 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
-        aSwerve.drive(-joystickE.getRawAxis(1)*0.5, -joystickE.getRawAxis(0)*0.5, -joystickE.getRawAxis(4)*0.8, RF);
+        
+        /*
+         * Drive the robot using the joystick's Y and X axes for forward and strafe, respectively, and the twist axis for rotation.
+         */
+        aSwerve.drive(
+            (Math.abs(joystickE.getRawAxis(1))>=Constants.kDeadzone)?-joystickE.getRawAxis(1)*((joystickE.getRawButton(5))?SwerveConstants.kGearTwo:SwerveConstants.kGearOne):0, 
+            (Math.abs(joystickE.getRawAxis(0))>=Constants.kDeadzone)?-joystickE.getRawAxis(0)*((joystickE.getRawButton(5))?SwerveConstants.kGearTwo:SwerveConstants.kGearOne):0, 
+            (Math.abs(joystickE.getRawAxis(4))>=Constants.kDeadzone)? joystickE.getRawAxis(4)*0.8:0, 
+            RF);
+        
+        /*
+         * Reset the robot's yaw to 0 degrees when button 6 is pressed.
+         */
+        if (joystickE.getRawButtonPressed(6)) {
+            aSwerve.zeroYaw();
+        }
+
 
         if (joystick.getRawButtonPressed(6)) {
             fieldOffset = mImu.getYaw();

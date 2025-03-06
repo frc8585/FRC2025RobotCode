@@ -107,6 +107,10 @@ public class Swerve extends SubsystemBase {
         mOdometry.update(mImu.getRotation2d(), getModulePositions());
     }
 
+    public void zeroYaw() {
+        mImu.zeroYaw();
+    }
+
     /**
      * Drives the swerve - Input range: [-1, 1]
      * 

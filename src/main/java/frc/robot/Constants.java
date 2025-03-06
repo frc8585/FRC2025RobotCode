@@ -40,10 +40,10 @@ public  class Constants {
 
         // Rotor encoder offsets
         // Rotor encoder 偏移量
-        public static  double kLeftFrontRotorOffset = -0.39208984375;
-        public static  double kRightFrontRotorOffset = -0.311279296875;
-        public static  double kLeftRearRotorOffset =  0.26611328125*2;
-        public static  double kRightRearRotorOffset = 0.459228515625;
+        public static  double kLeftFrontRotorOffset = 0.106201171875;
+        public static  double kRightFrontRotorOffset = 0.22998046875;
+        public static  double kLeftRearRotorOffset =  -0.0166015625;
+        public static  double kRightRearRotorOffset = -0.053466796875;
 
 
         // Swerve kinematics (order: left front, right front, left rear, right rear)
@@ -99,7 +99,15 @@ public  class Constants {
         public static double kPathingTheta_kP = 5.0;
         public static double kPathingTheta_kI = 3.0;
         public static double kPathingTheta_kD = 0.13;
+
+        // Gear
+        public static double kGearOne = 0.5;
+        public static double kGearTwo = 0.7;
+
     }
+
+    // joystick Deadzone
+    public static  double kDeadzone = 0.08;
     // Voltage compensation
     public static  double kVoltageCompensation = 12.0;
     
