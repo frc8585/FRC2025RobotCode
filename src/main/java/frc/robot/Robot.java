@@ -14,16 +14,14 @@ import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Algae;
 
 public class Robot extends TimedRobot {
-    private final AHRS mImu = new AHRS(AHRS.NavXComType.kMXP_SPI);
     private Command m_autonomousCommand;
+    public Joystick joystickE = new Joystick(0);
+    public Joystick joystick = new Joystick(1);
     private final Swerve aSwerve = new Swerve();
     private final Climber climber = new Climber();
     private final Algae algae = new Algae();
 
     public boolean RF;
-
-    public Joystick joystickE = new Joystick(0);
-    public Joystick joystick = new Joystick(1);
 
     @Override
     public void robotInit() {
