@@ -1,7 +1,5 @@
 package frc.robot;
 
-import com.studica.frc.AHRS;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -12,6 +10,7 @@ import frc.robot.Constants.SwerveConstants;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Algae;
+import frc.robot.subsystems.Coral;
 
 public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
@@ -20,6 +19,7 @@ public class Robot extends TimedRobot {
     private final Swerve aSwerve = new Swerve();
     private final Climber climber = new Climber();
     private final Algae algae = new Algae();
+    private final Coral coral = new Coral();
 
     public boolean RF;
 
@@ -27,6 +27,7 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         climber.climberInit();
         algae.algaeInit();
+        coral.coralInit();
 
         RF = true;
     }
@@ -79,8 +80,8 @@ public class Robot extends TimedRobot {
         if (joystickE.getRawButtonPressed(6)) {
             aSwerve.zeroYaw();
         }
-        climber.climb(joystick.getRawButton(6));
-        algae.algaeIntake(joystick.getRawButton(1), joystick.getRawButton(2), joystick.getRawAxis(1));
-        
+        climber.climb(joystick.getRawButton(9));
+        algae.algaeIntake(joystick.getRawButton(1), joystick.getRawButton(2), joystick.getRawButton(5));
+        coral.coralControl(joystick.getRawButton(3), joystick.getRawButton(4), joystick.getRawButton(6));
     }
 }
