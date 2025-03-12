@@ -2,6 +2,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
+import frc.robot.Constants.SwerveConstants;
 import frc.robot.subsystems.Swerve;
 
 public class ManualDrive extends Command {
@@ -19,8 +21,10 @@ public class ManualDrive extends Command {
 
     @Override
     public void execute() {
-        // Drives with XSpeed, YSpeed, zSpeed
-        // True/false for field-oriented driving
-        //mSwerve.drive(-mController.getRawAxis(1), -mController.getRawAxis(0), - mController.getRawAxis(4), false);
+        // mSwerve.drive(
+        //     (Math.abs(mController.getRawAxis(1))>=Constants.kDeadzone)?-mController.getRawAxis(1)*((mController.getRawButton(5))?SwerveConstants.kGearTwo:SwerveConstants.kGearOne):0, 
+        //     (Math.abs(mController.getRawAxis(0))>=Constants.kDeadzone)?-mController.getRawAxis(0)*((mController.getRawButton(5))?SwerveConstants.kGearTwo:SwerveConstants.kGearOne):0, 
+        //     (Math.abs(mController.getRawAxis(2))>=Constants.kDeadzone)? mController.getRawAxis(2)*0.8:0, 
+        //     false);
     }
 }

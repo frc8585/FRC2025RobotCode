@@ -7,6 +7,7 @@ import com.pathplanner.lib.config.PIDConstants;
 import com.studica.frc.AHRS;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
@@ -120,7 +121,7 @@ public class Swerve extends SubsystemBase {
      * @param fieldOriented configure robot movement style (設置機器運動方式) (field or robot oriented)
      */
     public void drive(double xSpeed, double ySpeed, double zSpeed, boolean fieldOriented) {
-        System.out.println("xSpeed:"+xSpeed);
+        // System.out.println("xSpeed:"+xSpeed);
         
         ChassisSpeeds speeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zSpeed, mImu.getRotation2d());
         SwerveModuleState[] states = SwerveConstants.kSwerveKinematics.toSwerveModuleStates(speeds);
@@ -132,6 +133,7 @@ public class Swerve extends SubsystemBase {
     }
 
     /**
+     * 7
      * Get current swerve module states
      * 輸出 4 個 Swerve Module 的當前狀態 modules
      * 
